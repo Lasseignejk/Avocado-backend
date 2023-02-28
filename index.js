@@ -1,12 +1,12 @@
 const express = require("express");
 const cors = require("cors");
-const products = require("./products");
-import { createClient } from "@supabase/supabase-js";
+require("dotenv").config();
+
 const PORT = process.env.PORT || 3060;
 const cloudinary = require("cloudinary");
 const supabaseUrl = "https://dwjnomervswgqasgexck.supabase.co";
-const supabaseKey = import.meta.env.VITE_KEY;
-const supabase = createClient(supabaseUrl, supabaseKey);
+const supabaseKey = process.env.VITE_KEY;
+// const supabase = createClient(supabaseUrl, supabaseKey);
 
 const app = express();
 app.use(express.json());
