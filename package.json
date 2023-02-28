@@ -1,0 +1,26 @@
+{
+  "name": "avocado-backend",
+  "version": "1.0.0",
+  "description": "Readme for the backend portion",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lasseignejk/Avocado-backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Lasseignejk/Avocado-backend/issues"
+  },
+  "homepage": "https://github.com/Lasseignejk/Avocado-backend#readme",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.8.0",
+    "cloudinary": "^1.34.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "nodemon": "^2.0.20"
+  }
+}
