@@ -12,12 +12,9 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.get("/user", (req, res) => {
-  res.send(user);
-});
-
-app.post("/products", async (req, res) => {
-  const { data, error } = await supabase.auth.signUp({
+app.post("/signup", async (req, res) => {
+  const { email, password } = req.body;
+  let { data, error } = await supabase.auth.signUp({
     email: req.body.email,
     password: req.body.password,
   });
