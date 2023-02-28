@@ -18,4 +18,20 @@ app.get("/products", (req, res) => {
   res.send(products);
 });
 
+app.post("/products", async (req, res) => {
+  const { data, error } = await supabase.auth.signUp({
+    email: req.body.email,
+    password: req.body.password,
+  });
+})
+
+
+
+
+
+
+
+
+
+
 app.listen(PORT, console.log(`Server started on port ${PORT}`));
