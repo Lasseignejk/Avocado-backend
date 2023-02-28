@@ -7,6 +7,7 @@ const PORT = process.env.PORT || 3060;
 const cloudinary = require("cloudinary");
 const supabaseUrl = "https://dwjnomervswgqasgexck.supabase.co";
 const supabaseKey = process.env.VITE_KEY;
+console.log(supabaseKey);
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 const app = express();
@@ -17,16 +18,16 @@ app.use(
 		extended: true,
 	})
 );
-app.use(bodyParser.json());
 
 app.post("/signup", async (req, res) => {
 	const { CustomerEmail, Password } = req.body;
-	console.log(CustomerEmail);
-	console.log(Password);
+
 	let { data, error } = await supabase.auth.signUp({
 		email: CustomerEmail,
 		password: Password,
 	});
+	console.log(data);
+	console.log(error);
 });
 
 app.listen(PORT, console.log(`Server started on port ${PORT}`));
