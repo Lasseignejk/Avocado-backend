@@ -26,6 +26,7 @@ app.post("/signup", async (req, res) => {
 		CustomerLastName,
 		CustomerPhoneNumber,
 		Address,
+		RestOwner,
 	} = req.body;
 
 	await supabase.auth.signUp({
@@ -33,17 +34,30 @@ app.post("/signup", async (req, res) => {
 		password: Password,
 	});
 
-	let { data, error } = await supabase.from("Customer").insert([
-		{
-			CustomerFirstName: CustomerFirstName,
-			CustomerLastName: CustomerLastName,
-			CustomerEmail: CustomerEmail,
-			CustomerPhoneNumber: CustomerPhoneNumber,
-			Address: Address,
-		},
-	]);
-	console.log(data);
-	console.log(error);
+	if (RestOwner == "false") {
+		let { data, error } = await supabase.from("Customer").insert([
+			{
+				CustomerFirstName: CustomerFirstName,
+				CustomerLastName: CustomerLastName,
+				CustomerEmail: CustomerEmail,
+				CustomerPhoneNumber: CustomerPhoneNumber,
+				Address: Address,
+			},
+		]);
+		console.log(data);
+		console.log(error);
+	} else {
+		let { data, error } = await supabase.from("Owner").insert([
+			{
+				OwnerFirstName: CustomerFirstName,
+				OwnerLastName: CustomerLastName,
+				OwnerEmail: CustomerEmail,
+				OwnerPhoneNumber: CustomerPhoneNumber,
+			},
+		]);
+		console.log(data);
+		console.log(error);
+	}
 });
 
 app.listen(PORT, console.log(`Server started on port ${PORT}`));
