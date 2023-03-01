@@ -69,7 +69,7 @@ app.post("/addrest", async (req, res) => {
 		RestLogo,
 		OwnerId,
 	} = req.body;
-	let { data, error } = await supabase.from("addrest").insert([
+	let { data, error } = await supabase.from("Restaurant").insert([
 		{
 			RestName: RestName,
 			RestLocation: RestLocation,
