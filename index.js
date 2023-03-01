@@ -87,31 +87,18 @@ app.post("/addrest", async (req, res) => {
 
 //update routes - Owner
 app.post("/update", async (req, res) => {
-  const {
-    CustomerEmail,
-    CustomerFirstName,
-    CustomerLastName,
-    CustomerPhoneNumber,
-  } = req.body;
+  const { OwnerEmail, OwnerFirstName, OwnerLastName, OwnerPhoneNumber } =
+    req.body;
 
   const { data, error } = await supabase
     .from("Owner")
     .update({
-      id: CustomerFirstName,
-      OwnerLastName: CustomerLastName,
-      OwnerEmail: CustomerEmail,
-      OwnerPhoneNumber: CustomerPhoneNumber,
+      OwnerFirstName: OwnerFirstName,
+      OwnerLastName: OwnerLastName,
+      OwnerEmail: OwnerEmail,
+      OwnerPhoneNumber: OwnerPhoneNumber,
     })
-    .eq(
-      id,
-      CustomerFirstName,
-      OwnerLastName,
-      CustomerLastName,
-      OwnerEmail,
-      CustomerEmail,
-      OwnerPhoneNumber,
-      CustomerPhoneNumber
-    );
+    .eq(OwnerEmail, OwnerFirstName, OwnerLastName, OwnerPhoneNumber);
 });
 
 //update routes - Customer
@@ -132,6 +119,81 @@ app.post("/update", async (req, res) => {
       CustomerPhoneNumber: CustomerPhoneNumber,
     })
     .eq(
+      CustomerFirstName,
+      CustomerLastName,
+      CustomerEmail,
+      CustomerPhoneNumber
+    );
+});
+
+//delete route - Customer
+app.post("/delete", async (req, res) => {
+  const {
+    id,
+    CustomerFirstName,
+    CustomerLastName,
+    CustomerEmail,
+    CustomerPhoneNumber,
+  } = req.body;
+
+  const { data, error } = await supabase
+    .from("Customer")
+    .delete({
+      id: id,
+      CustomerFirstName: CustomerFirstName,
+      CustomerLastName: CustomerLastName,
+      CustomerEmail: CustomerEmail,
+      CustomerPhoneNumber: CustomerPhoneNumber,
+    })
+    .eq(
+      id,
+      CustomerFirstName,
+      CustomerLastName,
+      CustomerEmail,
+      CustomerPhoneNumber
+    );
+});
+
+//delete route - Owner
+app.post("/delete", async (req, res) => {
+  const { id, OwnerFirstName, OwnerLastName, OwnerEmail, OwnerPhoneNumber } =
+    req.body;
+
+  const { data, error } = await supabase
+    .from("Customer")
+    .delete({
+      id: id,
+      OwnerFirstName: OwnerFirstName,
+      OwnerLastName: OwnerLastName,
+      OwnerEmail: OwnerEmail,
+      OwnerPhoneNumber: OwnerPhoneNumber,
+    })
+    .eq(OwnerFirstName, OwnerLastName, OwnerEmail, OwnerPhoneNumber);
+});
+
+//select/read route - Owner
+app.post("/read", async (req, res) => {
+  const { id, OwnerFirstName, OwnerLastName, OwnerEmail, OwnerPhoneNumber } =
+    req.body;
+
+  const { data, error } = await supabase
+    .from("Owner")
+    .select(id, OwnerFirstName, OwnerLastName, OwnerEmail, OwnerPhoneNumber);
+});
+
+//select/read route - Customer
+app.post("/read", async (req, res) => {
+  const {
+    id,
+    CustomerFirstName,
+    CustomerLastName,
+    CustomerEmail,
+    CustomerPhoneNumber,
+  } = req.body;
+
+  const { data, error } = await supabase
+    .from("Owner")
+    .select(
       id,
       CustomerFirstName,
       CustomerLastName,
