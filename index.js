@@ -60,4 +60,27 @@ app.post("/signup", async (req, res) => {
 	}
 });
 
+app.post("/addrest", async (req, res) => {
+	const {
+		RestName,
+		RestLocation,
+		RestPhoneNumber,
+		RestHours,
+		RestLogo,
+		OwnerId,
+	} = req.body;
+	let { data, error } = await supabase.from("addrest").insert([
+		{
+			RestName: RestName,
+			RestLocation: RestLocation,
+			RestPhoneNumber: RestPhoneNumber,
+			RestHours: RestHours,
+			RestLogo: RestLogo,
+			OwnerId: OwnerId,
+		},
+	]);
+	console.log(data);
+	console.log(error);
+});
+
 app.listen(PORT, console.log(`Server started on port ${PORT}`));
