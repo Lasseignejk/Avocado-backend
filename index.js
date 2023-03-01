@@ -62,20 +62,16 @@ app.post("/signup", async (req, res) => {
 });
 
 app.post("/login", async (req, res) => {
-	const {
-		CustomerEmail,
-		Password,
-		} = req.body;
+	const { CustomerEmail, Password } = req.body;
 
-	await supabase.auth.signInWithPassword({
+	let { data, error } = await supabase.auth.signInWithPassword({
 		email: CustomerEmail,
 		password: Password,
 	});
 
-		console.log(data);
-		console.log(error);
-	}
-);
+	console.log(data);
+	console.log(error);
+});
 
 //rest information route
 app.post("/addrest", async (req, res) => {
@@ -252,99 +248,95 @@ app.post("/addtomenu", async (req, res) => {
 });
 
 app.post("/updatemenu", async (req, res) => {
-  const {
-    ItemName,
-    ItemPrice,
-    RestPhoneNumber,
-    ItemDescription,
-    ItemImg,
-    ItemBreakfast,
-    ItemLunch,
-    ItemDinner,
-    ItemType,
-    ItemAvailable,
-    ItemIsPopular,
-    ItemCookTime,
-  } = req.body;
-  const { data, error } = await supabase
-    .from("MenuItems")
-    .update({
-      ItemName: ItemName,
-      ItemPrice: ItemPrice,
-      RestPhoneNumber: RestPhoneNumber,
-      ItemDescription: ItemDescription,
-      ItemImg: ItemImg,
-      ItemBreakfast: ItemBreakfast,
-      ItemLunch: ItemLunch,
-      ItemDinner: ItemDinner,
-      ItemType: ItemType,
-      ItemAvailable: ItemAvailable,
-      ItemIsPopular: ItemIsPopular,
-      ItemCookTime: ItemCookTime,
-    })
-    .eq([
-      (ItemName, ItemName),
-      (ItemPrice, ItemPrice),
-      (RestPhoneNumber, RestPhoneNumber),
-      (ItemDescription, ItemDescription),
-      (ItemImg, ItemImg),
-      (ItemBreakfast, ItemBreakfast),
-      (ItemLunch, ItemLunch),
-      (ItemDinner, ItemDinner),
-      (ItemType, ItemType),
-      (ItemAvailable, ItemAvailable),
-      (ItemIsPopular, ItemIsPopular),
-      (ItemCookTime, ItemCookTime),
-    ]);
-  console.log(data);
-  console.log(error);
+	const {
+		ItemName,
+		ItemPrice,
+		RestPhoneNumber,
+		ItemDescription,
+		ItemImg,
+		ItemBreakfast,
+		ItemLunch,
+		ItemDinner,
+		ItemType,
+		ItemAvailable,
+		ItemIsPopular,
+		ItemCookTime,
+	} = req.body;
+	const { data, error } = await supabase
+		.from("MenuItems")
+		.update({
+			ItemName: ItemName,
+			ItemPrice: ItemPrice,
+			RestPhoneNumber: RestPhoneNumber,
+			ItemDescription: ItemDescription,
+			ItemImg: ItemImg,
+			ItemBreakfast: ItemBreakfast,
+			ItemLunch: ItemLunch,
+			ItemDinner: ItemDinner,
+			ItemType: ItemType,
+			ItemAvailable: ItemAvailable,
+			ItemIsPopular: ItemIsPopular,
+			ItemCookTime: ItemCookTime,
+		})
+		.eq([
+			(ItemName, ItemName),
+			(ItemPrice, ItemPrice),
+			(RestPhoneNumber, RestPhoneNumber),
+			(ItemDescription, ItemDescription),
+			(ItemImg, ItemImg),
+			(ItemBreakfast, ItemBreakfast),
+			(ItemLunch, ItemLunch),
+			(ItemDinner, ItemDinner),
+			(ItemType, ItemType),
+			(ItemAvailable, ItemAvailable),
+			(ItemIsPopular, ItemIsPopular),
+			(ItemCookTime, ItemCookTime),
+		]);
+	console.log(data);
+	console.log(error);
 });
 
 app.get("/displaymenu", async (req, res) => {
-  let { data: MenuItems, error } = await supabase.from("MenuItems").select("*");
-  console.log(MenuItems);
-  console.log(error);
-  res.send(MenuItems);
+	let { data: MenuItems, error } = await supabase.from("MenuItems").select("*");
+	console.log(MenuItems);
+	console.log(error);
+	res.send(MenuItems);
 });
 
 app.get("/displayrest", async (req, res) => {
-	  let { data: Restaurant, error } = await supabase.from("Restaurant").select("*");
-	  console.log(Restaurant);
-	  console.log(error);
-	  res.send(Restaurant);
-	});
+	let { data: Restaurant, error } = await supabase
+		.from("Restaurant")
+		.select("*");
+	console.log(Restaurant);
+	console.log(error);
+	res.send(Restaurant);
+});
 
 app.get("/displayowner", async (req, res) => {
-	  let { data: Owner, error } = await supabase.from("Owner").select("*");
-	  console.log(Owner);
-	  console.log(error);
-	  res.send(Owner);
-	});
+	let { data: Owner, error } = await supabase.from("Owner").select("*");
+	console.log(Owner);
+	console.log(error);
+	res.send(Owner);
+});
 
 app.get("/displaycustomer", async (req, res) => {
-	  let { data: Customer, error } = await supabase.from("Customer").select("*");
-	  console.log(Customer);
-	  console.log(error);
-	  res.send(Customer);
-	});
+	let { data: Customer, error } = await supabase.from("Customer").select("*");
+	console.log(Customer);
+	console.log(error);
+	res.send(Customer);
+});
 
 app.get("/displayorder", async (req, res) => {
-	  let { data: Order, error } = await supabase.from("Order").select("*");
-	  console.log(Order);
-	  console.log(error);
-	  res.send(Order);
-	});
+	let { data: Order, error } = await supabase.from("Order").select("*");
+	console.log(Order);
+	console.log(error);
+	res.send(Order);
+});
 app.get("/displayorderitem", async (req, res) => {
-	  let { data: Order, error } = await supabase.from("OrderItem").select("*");
-	  console.log(Order);
-	  console.log(error);
-	  res.send(Order);
-	});
-
-
-
-
-
-
+	let { data: Order, error } = await supabase.from("OrderItem").select("*");
+	console.log(Order);
+	console.log(error);
+	res.send(Order);
+});
 
 app.listen(PORT, console.log(`Server started on port ${PORT}`));
