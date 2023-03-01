@@ -1,57 +1,143 @@
-const express = require('express');
-const cors = require('cors');
-const products = require('./products');
-import { createClient } from "@supabase/supabase-js";
-const PORT = process.env.PORT || 3060;
-const cloudinary = require('cloudinary')
-const supabaseUrl = 'https://dwjnomervswgqasgexck.supabase.co'
-const supabaseKey = import.meta.env.VITE_KEY;
-const supabase = createClient(supabaseUrl, supabaseKey);
+const express = require("express");
+const cors = require("cors");
+require("dotenv").config();
 const bodyParser = require("body-parser");
+const { createClient } = require("@supabase/supabase-js");
+const PORT = process.env.PORT || 3060;
+const cloudinary = require("cloudinary");
+const supabaseUrl = "https://dwjnomervswgqasgexck.supabase.co";
+const supabaseKey = process.env.VITE_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 const app = express();
-app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
+
+//signup route
 app.post("/signup", async (req, res) => {
-  const { email, password } = req.body;
- let { data, error } = await supabase.auth.signUp({
-  email: req.body.email,
-  password: req.body.password,
-})
+  const {
+    CustomerEmail,
+    Password,
+    CustomerFirstName,
+    CustomerLastName,
+    CustomerPhoneNumber,
+    Address,
+    RestOwner,
+  } = req.body;
 
+  await supabase.auth.signUp({
+    email: CustomerEmail,
+    password: Password,
+  });
 
+  if (RestOwner == "false") {
+    let { data, error } = await supabase.from("Customer").insert([
+      {
+        CustomerFirstName: CustomerFirstName,
+        CustomerLastName: CustomerLastName,
+        CustomerEmail: CustomerEmail,
+        CustomerPhoneNumber: CustomerPhoneNumber,
+        Address: Address,
+      },
+    ]);
+    console.log(data);
+    console.log(error);
+  } else {
+    let { data, error } = await supabase.from("Owner").insert([
+      {
+        OwnerFirstName: CustomerFirstName,
+        OwnerLastName: CustomerLastName,
+        OwnerEmail: CustomerEmail,
+        OwnerPhoneNumber: CustomerPhoneNumber,
+      },
+    ]);
+    console.log(data);
+    console.log(error);
+  }
+});
 
-console.log(error)
-    if(data){
-      res.send(data)
-      return
-    } else {
-      res.send("Error signing up")
-    }
-})
+//rest information route
+app.post("/addrest", async (req, res) => {
+  const {
+    RestName,
+    RestLocation,
+    RestPhoneNumber,
+    RestHours,
+    RestLogo,
+    OwnerId,
+  } = req.body;
+  let { data, error } = await supabase.from("Restaurant").insert([
+    {
+      RestName: RestName,
+      RestLocation: RestLocation,
+      RestPhoneNumber: RestPhoneNumber,
+      RestHours: RestHours,
+      RestLogo: RestLogo,
+      OwnerId: OwnerId,
+    },
+  ]);
+  console.log(data);
+  console.log(error);
+});
 
-app.post('/signin', async (req, res) => {
-  const { email, password } = req.body
+//update routes - Owner
+app.post("/update", async (req, res) => {
+  const {
+    CustomerEmail,
+    CustomerFirstName,
+    CustomerLastName,
+    CustomerPhoneNumber,
+  } = req.body;
 
-  try {
-    const {user, error} = await supabase.auth.signInWithPassword({ 
-      email: req.body.email,
-      password: req.body.password,  
-     })
-    console.log(error)
-    
-    if(user.data){
-      res.render("pages/signedin")
-      return
-    }}
-   catch (error) {
+  const { data, error } = await supabase
+    .from("Owner")
+    .update({
+      id: CustomerFirstName,
+      OwnerLastName: CustomerLastName,
+      OwnerEmail: CustomerEmail,
+      OwnerPhoneNumber: CustomerPhoneNumber,
+    })
+    .eq(
+      id,
+      CustomerFirstName,
+      OwnerLastName,
+      CustomerLastName,
+      OwnerEmail,
+      CustomerEmail,
+      OwnerPhoneNumber,
+      CustomerPhoneNumber
+    );
+});
 
-      res.status(400).send(error)
+//update routes - Customer
+app.post("/update", async (req, res) => {
+  const {
+    CustomerEmail,
+    CustomerFirstName,
+    CustomerLastName,
+    CustomerPhoneNumber,
+  } = req.body;
 
-  }})
+  const { data, error } = await supabase
+    .from("Customer")
+    .update({
+      id: CustomerFirstName,
+      CustomerLastName: CustomerLastName,
+      CustomerEmail: CustomerEmail,
+      CustomerPhoneNumber: CustomerPhoneNumber,
+    })
+    .eq(
+      id,
+      CustomerFirstName,
+      CustomerLastName,
+      CustomerEmail,
+      CustomerPhoneNumber
+    );
+});
 
 app.listen(PORT, console.log(`Server started on port ${PORT}`));
