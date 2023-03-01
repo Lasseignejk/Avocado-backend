@@ -7,7 +7,6 @@ const PORT = process.env.PORT || 3060;
 const cloudinary = require("cloudinary");
 const supabaseUrl = "https://dwjnomervswgqasgexck.supabase.co";
 const supabaseKey = process.env.VITE_KEY;
-// console.log(supabaseKey);
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 const app = express();
@@ -20,12 +19,29 @@ app.use(
 );
 
 app.post("/signup", async (req, res) => {
-	const { CustomerEmail, Password, CustomerFirstName } = req.body;
+	const {
+		CustomerEmail,
+		Password,
+		CustomerFirstName,
+		CustomerLastName,
+		CustomerPhoneNumber,
+		Address,
+	} = req.body;
 
-	let { data, error } = await supabase.auth.signUp({
+	await supabase.auth.signUp({
 		email: CustomerEmail,
 		password: Password,
 	});
+
+	let { data, error } = await supabase.from("Customer").insert([
+		{
+			CustomerFirstName: CustomerFirstName,
+			CustomerLastName: CustomerLastName,
+			CustomerEmail: CustomerEmail,
+			CustomerPhoneNumber: CustomerPhoneNumber,
+			Address: Address,
+		},
+	]);
 	console.log(data);
 	console.log(error);
 });
