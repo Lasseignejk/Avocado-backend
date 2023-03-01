@@ -61,6 +61,22 @@ app.post("/signup", async (req, res) => {
 	}
 });
 
+app.post("/login", async (req, res) => {
+	const {
+		CustomerEmail,
+		Password,
+		} = req.body;
+
+	await supabase.auth.signInWithPassword({
+		email: CustomerEmail,
+		password: Password,
+	});
+
+		console.log(data);
+		console.log(error);
+	}
+);
+
 //rest information route
 app.post("/addrest", async (req, res) => {
 	const {
