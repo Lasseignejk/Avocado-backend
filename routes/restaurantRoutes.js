@@ -1,24 +1,23 @@
 const express = require("express");
 const cors = require("cors");
-require("dotenv").config();
+const router = express.Router();
 const bodyParser = require("body-parser");
 const { createClient } = require("@supabase/supabase-js");
-const PORT = process.env.PORT || 3060;
 const cloudinary = require("cloudinary");
 const supabaseUrl = "https://dwjnomervswgqasgexck.supabase.co";
 const supabaseKey = process.env.VITE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-const app = express();
-app.use(express.json());
-app.use(cors());
-app.use(
+// MIDDLEWARE
+router.use(cors());
+router.use(
 	bodyParser.urlencoded({
 		extended: true,
 	})
 );
+router.use(bodyParser.json());
 
-app.post("/addrest", async (req, res) => {
+router.post("/addrest", async (req, res) => {
 	const {
 		RestName,
 		RestLocation,
@@ -40,3 +39,14 @@ app.post("/addrest", async (req, res) => {
 	console.log(data);
 	console.log(error);
 });
+
+router.get("/displayrest", async (req, res) => {
+	let { data: Restaurant, error } = await supabase
+		.from("Restaurant")
+		.select("*");
+	console.log(Restaurant);
+	console.log(error);
+	res.send(Restaurant);
+});
+
+module.exports = router;
