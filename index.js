@@ -73,6 +73,13 @@ app.post("/login", async (req, res) => {
 	console.log(error);
 });
 
+app.post("/logout", async (req, res) => {
+	
+	let { error } = await supabase.auth.signOut()
+	console.log(error)
+	});
+
+
 //rest information route
 app.post("/addrest", async (req, res) => {
 	const {
