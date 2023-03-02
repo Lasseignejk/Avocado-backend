@@ -1,24 +1,23 @@
-// const express = require("express");
-// const cors = require("cors");
-// require("dotenv").config();
-// const bodyParser = require("body-parser");
-// const { createClient } = require("@supabase/supabase-js");
-// const PORT = process.env.PORT || 3060;
-// const cloudinary = require("cloudinary");
-// const supabaseUrl = "https://dwjnomervswgqasgexck.supabase.co";
-// const supabaseKey = process.env.VITE_KEY;
-// const supabase = createClient(supabaseUrl, supabaseKey);
+const express = require("express");
+const cors = require("cors");
+const router = express.Router();
+const bodyParser = require("body-parser");
+const { createClient } = require("@supabase/supabase-js");
+const cloudinary = require("cloudinary");
+const supabaseUrl = "https://dwjnomervswgqasgexck.supabase.co";
+const supabaseKey = process.env.VITE_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey);
 
-const app = express();
-app.use(express.json());
-app.use(cors());
-app.use(
+// MIDDLEWARE
+router.use(cors());
+router.use(
 	bodyParser.urlencoded({
 		extended: true,
 	})
 );
+router.use(bodyParser.json());
 
-app.post("/update", async (req, res) => {
+router.post("/update", async (req, res) => {
 	const {
 		CustomerEmail,
 		CustomerFirstName,
@@ -43,7 +42,7 @@ app.post("/update", async (req, res) => {
 });
 
 //delete route - Customer
-app.post("/deletecust", async (req, res) => {
+router.post("/delete", async (req, res) => {
 	const {
 		id,
 		CustomerFirstName,
@@ -70,7 +69,7 @@ app.post("/deletecust", async (req, res) => {
 		);
 });
 
-app.get("/readcust", async (req, res) => {
+router.get("/read", async (req, res) => {
 	const {
 		id,
 		CustomerFirstName,
@@ -89,3 +88,12 @@ app.get("/readcust", async (req, res) => {
 			CustomerPhoneNumber
 		);
 });
+
+router.get("/displaycustomer", async (req, res) => {
+	let { data: Customer, error } = await supabase.from("Customer").select("*");
+	console.log(Customer);
+	console.log(error);
+	res.send(Customer);
+});
+
+module.exports = router;
