@@ -17,6 +17,23 @@ router.use(
 );
 router.use(bodyParser.json());
 
+// get restaurants by id of admin
+router.get("/getrestaurants", async (req, res) => {
+	const { data, error } = await supabase
+		.from("Restaurant")
+		.select()
+		.eq("OwnerId", 1);
+
+	if (error) {
+		res.send(error);
+	}
+	if (data) {
+		console.log(data);
+		res.send(data);
+	}
+});
+
+// add restaurant
 router.post("/addrest", async (req, res) => {
 	const {
 		RestName,
@@ -40,6 +57,7 @@ router.post("/addrest", async (req, res) => {
 	console.log(error);
 });
 
+// get all restaurants
 router.get("/displayrest", async (req, res) => {
 	let { data: Restaurant, error } = await supabase
 		.from("Restaurant")
