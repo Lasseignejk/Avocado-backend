@@ -17,6 +17,21 @@ router.use(
 );
 router.use(bodyParser.json());
 
+router.get("/managerestaurants", async (req, res) => {
+	const { data, error } = await supabase
+		.from("Restaurant")
+		.select()
+		.eq("OwnerId", 1);
+
+	if (error) {
+		res.send(error);
+	}
+	if (data) {
+		console.log(data);
+		res.send(data);
+	}
+});
+
 router.post("/update", async (req, res) => {
 	const { OwnerEmail, OwnerFirstName, OwnerLastName, OwnerPhoneNumber } =
 		req.body;
