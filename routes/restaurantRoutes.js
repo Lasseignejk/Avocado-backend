@@ -53,8 +53,7 @@ router.post("/addrest", async (req, res) => {
 			OwnerId: OwnerId,
 		},
 	]);
-	console.log(data);
-	console.log(error);
+	res.send(data);
 });
 
 // get all restaurants
