@@ -19,6 +19,9 @@ router.use(bodyParser.json());
 
 // get restaurants by id of admin
 router.get("/getrestaurants", async (req, res) => {
+	userid = req.headers.userid;
+	console.log(userid);
+	// console.log(req.get(userId));
 	const { data, error } = await supabase
 		.from("Restaurant")
 		.select()
