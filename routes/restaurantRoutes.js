@@ -74,6 +74,39 @@ router.post("/addrest", async (req, res) => {
   res.send(data);
 });
 
+// add menu item
+router.post("/addtomenu", async (req, res) => {
+  const {
+    ItemName,
+    ItemType,
+    ItemPrice,
+    ItemDescription,
+    ItemBreakfast,
+    ItemLunch,
+    ItemDinner,
+    ItemIsPopular,
+    ItemAvailable,
+    ItemCookTime,
+    ItemImg,
+  } = req.body;
+  let { data, error } = await supabase.from("MenuItems").insert([
+    {
+      ItemName: ItemName,
+      ItemType: ItemType,
+      ItemPrice: ItemPrice,
+      ItemDescription: ItemDescription,
+      ItemBreakfast: ItemBreakfast,
+      ItemLunch: ItemLunch,
+      ItemDinner: ItemDinner,
+      ItemIsPopular: ItemIsPopular,
+      ItemAvailable: ItemAvailable,
+      ItemCookTime: ItemCookTime,
+      ItemImg: ItemImg,
+    },
+  ]);
+  res.send(data);
+});
+
 // get all restaurants
 router.get("/displayrest", async (req, res) => {
   let { data: Restaurant, error } = await supabase
