@@ -38,7 +38,7 @@ router.get("/getrestaurants", async (req, res) => {
 router.get("/getmenu", async (req, res) => {
   restid = req.headers.restid;
   const { data, error } = await supabase
-    .from("MenuItem")
+    .from("MenuItems")
     .select()
     .eq("RestId", restid);
 
@@ -47,6 +47,7 @@ router.get("/getmenu", async (req, res) => {
   }
   if (data) {
     res.send(data);
+    console.log(data);
   }
 });
 
