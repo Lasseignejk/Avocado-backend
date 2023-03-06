@@ -88,6 +88,7 @@ router.post("/addtomenu", async (req, res) => {
     ItemAvailable,
     ItemCookTime,
     ItemImg,
+    RestId,
   } = req.body;
   let { data, error } = await supabase.from("MenuItems").insert([
     {
@@ -102,9 +103,11 @@ router.post("/addtomenu", async (req, res) => {
       ItemAvailable: ItemAvailable,
       ItemCookTime: ItemCookTime,
       ItemImg: ItemImg,
+      RestId: RestId,
     },
   ]);
   res.send(data);
+  console.log("req.body: ", req.body);
 });
 
 // get all restaurants
