@@ -133,7 +133,7 @@ app.get("/displayorderitem", async (req, res) => {
 	res.send(Order);
 });
 
-server.use((req, res) => {
+app.use((req, res) => {
 	res.send("Hello World");
 });
 
