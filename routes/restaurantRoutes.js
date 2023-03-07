@@ -183,7 +183,7 @@ router.post("/updatemenuitem", async (req, res) => {
     console.log(error);
     res.send(error);
   }
-  //   res.send("ok");
+  res.send("ok");
 });
 
 // get all restaurants
