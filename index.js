@@ -133,4 +133,6 @@ app.get("/displayorderitem", async (req, res) => {
 	res.send(Order);
 });
 
+res.send("Hello!");
+
 app.listen(PORT, console.log(`Server started on port ${PORT}`));
