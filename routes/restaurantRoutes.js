@@ -50,8 +50,28 @@ router.get("/getonerestaurant", async (req, res) => {
 	}
 });
 
-// get menuitems by restaurant id
+// update a restaurant's information
+router.post("/updaterestaurant", async (req, res) => {
+	const { RestName, RestLocation, RestPhoneNumber, RestHours, RestLogo, id } =
+		req.body;
+	const { error } = await supabase
+		.from("Restaurant")
+		.update({
+			RestName: RestName,
+			RestPhoneNumber: RestPhoneNumber,
+			RestLocation: RestLocation,
+			RestHours: RestHours,
+			RestLogo: RestLogo,
+		})
+		.eq("id", id);
+	if (error) {
+		console.log(error);
+		res.send(error);
+	}
+	res.send("ok");
+});
 
+// get menuitems by restaurant id
 router.get("/getmenu", async (req, res) => {
 	restid = req.headers.restid;
 	const { data, error } = await supabase
