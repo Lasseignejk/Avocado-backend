@@ -177,14 +177,13 @@ router.post("/updatemenuitem", async (req, res) => {
       ItemAvailable: ItemAvailable,
       ItemCookTime: ItemCookTime,
       ItemImg: ItemImg,
-      id: id,
     })
     .eq("id", id);
   if (error) {
     console.log(error);
     res.send(error);
   }
-  res.send("ok");
+  //   res.send("ok");
 });
 
 // get all restaurants
