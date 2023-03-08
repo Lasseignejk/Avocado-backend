@@ -112,6 +112,39 @@ app.post("/updatemenu", async (req, res) => {
 	console.log(data);
 	console.log(error);
 });
+app.post("/updateCust", async (req, res) => {
+	const {
+		CustomerFirstName,
+		CustomerLastName,
+		CustomerPhoneNumber,
+		WantsNotifications,
+		InRewards,
+		Address,
+
+	} = req.body;
+	const { data, error } = await supabase
+		.from("Customer")
+		.update({
+			CustomerFirstName: CustomerFirstName,
+			CustomerLastName: CustomerLastName,
+			CustomerPhoneNumber: CustomerPhoneNumber,
+			WantsNotifications: WantsNotifications,
+			InRewards: InRewards,
+			Address: Address,
+
+		})
+		.eq([
+			(CustomerFirstName, CustomerFirstName),
+			(CustomerLastName, CustomerLastName),
+			(CustomerPhoneNumber, CustomerPhoneNumber),
+			(WantsNotifications, WantsNotifications),
+			(InRewards, InRewards),
+			(Address, Address),
+
+		]);
+	console.log(data);
+	console.log(error);
+});
 
 app.get("/displaymenu", async (req, res) => {
 	let { data: MenuItems, error } = await supabase.from("MenuItems").select("*");
