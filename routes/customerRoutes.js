@@ -11,89 +11,91 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 // MIDDLEWARE
 router.use(cors());
 router.use(
-	bodyParser.urlencoded({
-		extended: true,
-	})
+  bodyParser.urlencoded({
+    extended: true,
+  })
 );
 router.use(bodyParser.json());
 
-router.post("/update", async (req, res) => {
-	const {
-		CustomerEmail,
-		CustomerFirstName,
-		CustomerLastName,
-		CustomerPhoneNumber,
-	} = req.body;
-
-	const { data, error } = await supabase
-		.from("Customer")
-		.update({
-			id: CustomerFirstName,
-			CustomerLastName: CustomerLastName,
-			CustomerEmail: CustomerEmail,
-			CustomerPhoneNumber: CustomerPhoneNumber,
-		})
-		.eq(
-			CustomerFirstName,
-			CustomerLastName,
-			CustomerEmail,
-			CustomerPhoneNumber
-		);
+router.post("/updateCust", async (req, res) => {
+  const {
+	id,
+    CustomerFirstName,
+    CustomerLastName,
+    CustomerPhoneNumber,
+    WantsNotifications,
+    InRewards,
+    Address,
+  } = req.body;
+  const { data, error } = await supabase
+    .from("Customer")
+    .update({
+		
+      CustomerFirstName: CustomerFirstName,
+      CustomerLastName: CustomerLastName,
+      CustomerPhoneNumber: CustomerPhoneNumber,
+      WantsNotifications: WantsNotifications,
+      InRewards: InRewards,
+      Address: Address,
+    })
+    .eq("id", id);
+  console.log(data);
+  console.log(error);
 });
 
 //delete route - Customer
 router.post("/delete", async (req, res) => {
-	const {
-		id,
-		CustomerFirstName,
-		CustomerLastName,
-		CustomerEmail,
-		CustomerPhoneNumber,
-	} = req.body;
+  const {
+    id,
+    CustomerFirstName,
+    CustomerLastName,
+    CustomerEmail,
+    CustomerPhoneNumber,
+  } = req.body;
 
-	const { data, error } = await supabase
-		.from("Customer")
-		.delete({
-			id: id,
-			CustomerFirstName: CustomerFirstName,
-			CustomerLastName: CustomerLastName,
-			CustomerEmail: CustomerEmail,
-			CustomerPhoneNumber: CustomerPhoneNumber,
-		})
-		.eq(
-			id,
-			CustomerFirstName,
-			CustomerLastName,
-			CustomerEmail,
-			CustomerPhoneNumber
-		);
+  const { data, error } = await supabase
+    .from("Customer")
+    .delete({
+      id: id,
+      CustomerFirstName: CustomerFirstName,
+      CustomerLastName: CustomerLastName,
+      CustomerEmail: CustomerEmail,
+      CustomerPhoneNumber: CustomerPhoneNumber,
+    })
+    .eq(
+      id,
+      CustomerFirstName,
+      CustomerLastName,
+      CustomerEmail,
+      CustomerPhoneNumber
+    );
 });
 
 router.get("/read", async (req, res) => {
-	const {
-		id,
-		CustomerFirstName,
-		CustomerLastName,
-		CustomerEmail,
-		CustomerPhoneNumber,
-	} = req.body;
+  const {
+    id,
+    CustomerFirstName,
+    CustomerLastName,
+    CustomerEmail,
+    CustomerPhoneNumber,
+  } = req.body;
 
-	const { data, error } = await supabase
-		.from("Customer")
-		.select(
-			id,
-			CustomerFirstName,
-			CustomerLastName,
-			CustomerEmail,
-			CustomerPhoneNumber
-		);
+  const { data, error } = await supabase
+    .from("Customer")
+    .select(
+      id,
+      CustomerFirstName,
+      CustomerLastName,
+      CustomerEmail,
+      CustomerPhoneNumber
+    );
 });
 
 router.get("/displaycustomer", async (req, res) => {
-	let { data: Customer, error } = await supabase.from("Customer").select("*");
-	console.log(Customer);
-	console.log(error);
-	res.send(Customer);
+  let { data: Customer, error } = await supabase.from("Customer").select("*");
+  console.log(Customer);
+  console.log(error);
+  res.send(Customer);
 });
 
 module.exports = router;
