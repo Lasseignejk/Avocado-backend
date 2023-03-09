@@ -17,7 +17,7 @@ router.use(
 );
 router.use(bodyParser.json());
 
-router.post("/update", async (req, res) => {
+router.post("/updateAdmin", async (req, res) => {
 	const { OwnerEmail, OwnerFirstName, OwnerLastName, OwnerPhoneNumber } =
 		req.body;
 
@@ -29,7 +29,7 @@ router.post("/update", async (req, res) => {
 			OwnerEmail: OwnerEmail,
 			OwnerPhoneNumber: OwnerPhoneNumber,
 		})
-		.eq(OwnerEmail, OwnerFirstName, OwnerLastName, OwnerPhoneNumber);
+		.eq("id", id);
 });
 
 router.post("/read", async (req, res) => {
