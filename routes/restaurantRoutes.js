@@ -94,6 +94,7 @@ router.post("/addrest", async (req, res) => {
 	res.send(data);
 });
 
+// delete restaurant
 router.delete("/deleterestaurant", async (req, res) => {
 	restid = req.headers.restid;
 	const { data, error } = await supabase
