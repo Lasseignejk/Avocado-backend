@@ -18,15 +18,13 @@ router.use(
 router.use(bodyParser.json());
 
 router.post("/updateAdmin", async (req, res) => {
-	const { OwnerEmail, OwnerFirstName, OwnerLastName, OwnerPhoneNumber } =
-		req.body;
+	const { OwnerFirstName, OwnerLastName, OwnerPhoneNumber, id } = req.body;
 
 	const { data, error } = await supabase
 		.from("Owner")
 		.update({
 			OwnerFirstName: OwnerFirstName,
 			OwnerLastName: OwnerLastName,
-			OwnerEmail: OwnerEmail,
 			OwnerPhoneNumber: OwnerPhoneNumber,
 		})
 		.eq("id", id);
