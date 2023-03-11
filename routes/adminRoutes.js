@@ -27,6 +27,7 @@ router.post("/updateAdmin", async (req, res) => {
 			OwnerPhoneNumber: OwnerPhoneNumber,
 		})
 		.eq("id", id);
+	res.send(data);
 });
 
 router.post("/read", async (req, res) => {
