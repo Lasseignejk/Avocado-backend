@@ -4,7 +4,6 @@
 // const bodyParser = require("body-parser");
 // const { createClient } = require("@supabase/supabase-js");
 // const PORT = process.env.PORT || 3060;
-// const cloudinary = require("cloudinary");
 // const supabaseUrl = process.env.SUPABASE_URL;
 // const supabaseKey = process.env.VITE_KEY;
 // const supabase = createClient(supabaseUrl, supabaseKey);
