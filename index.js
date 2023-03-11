@@ -26,7 +26,6 @@ app.use("/admin", adminRoutes);
 app.use("/customer", customerRoutes);
 app.use("/admin/restaurant", restaurantRoutes);
 app.use("/order", orderRoutes);
-app.use("/auth", loginOutSignUp);
 
 //signup route
 
