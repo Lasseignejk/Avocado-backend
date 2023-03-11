@@ -28,6 +28,12 @@ router.post("/updateAdmin", async (req, res) => {
 			OwnerPhoneNumber: OwnerPhoneNumber,
 		})
 		.eq("id", id);
+	if (error) {
+		res.send(error);
+	}
+	if (data) {
+		res.send(data);
+	}
 });
 
 router.post("/read", async (req, res) => {
