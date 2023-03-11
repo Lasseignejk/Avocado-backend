@@ -13,7 +13,6 @@ const adminRoutes = require("./routes/adminRoutes");
 const customerRoutes = require("./routes/customerRoutes");
 const restaurantRoutes = require("./routes/restaurantRoutes");
 const orderRoutes = require("./routes/orderRoutes");
-const loginOutSignUp = require("./routes/loginOutSignUp");
 
 app.use(express.json());
 app.use(cors());
@@ -112,7 +111,6 @@ app.post("/updatemenu", async (req, res) => {
 	console.log(data);
 	console.log(error);
 });
-
 
 app.get("/displaymenu", async (req, res) => {
 	let { data: MenuItems, error } = await supabase.from("MenuItems").select("*");
