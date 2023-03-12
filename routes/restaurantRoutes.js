@@ -120,7 +120,6 @@ router.get("/getmenu", async (req, res) => {
 	}
 	if (data) {
 		res.send(data);
-		console.log(data);
 	}
 });
 
