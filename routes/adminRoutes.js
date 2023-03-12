@@ -32,16 +32,8 @@ router.post("/updateAdmin", async (req, res) => {
 
 // delete admin
 router.delete("/deleteadmin", async (req, res) => {
-	restid = req.headers.restid;
-	const { data, error } = await supabase
-		.from("MenuItems")
-		.delete()
-		.eq("RestId", restid);
-
-	const { data: restData, error: restError } = await supabase
-		.from("Restaurant")
-		.delete()
-		.eq("id", restid);
+	id = req.headers.id;
+	const { data, error } = await supabase.from("Owner").delete().eq("id", id);
 });
 
 // get restaurants by id of admin
@@ -68,23 +60,6 @@ router.post("/read", async (req, res) => {
 	const { data, error } = await supabase
 		.from("Owner")
 		.select(id, OwnerFirstName, OwnerLastName, OwnerEmail, OwnerPhoneNumber);
-});
-
-//delete route - Owner
-router.post("/delete", async (req, res) => {
-	const { id, OwnerFirstName, OwnerLastName, OwnerEmail, OwnerPhoneNumber } =
-		req.body;
-
-	const { data, error } = await supabase
-		.from("Customer")
-		.delete({
-			id: id,
-			OwnerFirstName: OwnerFirstName,
-			OwnerLastName: OwnerLastName,
-			OwnerEmail: OwnerEmail,
-			OwnerPhoneNumber: OwnerPhoneNumber,
-		})
-		.eq(OwnerFirstName, OwnerLastName, OwnerEmail, OwnerPhoneNumber);
 });
 
 router.get("/displayowner", async (req, res) => {
