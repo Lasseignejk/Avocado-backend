@@ -41,31 +41,10 @@ router.post("/updateCust", async (req, res) => {
 });
 
 //delete route - Customer
-router.post("/delete", async (req, res) => {
-	const {
-		id,
-		CustomerFirstName,
-		CustomerLastName,
-		CustomerEmail,
-		CustomerPhoneNumber,
-	} = req.body;
-
-	const { data, error } = await supabase
-		.from("Customer")
-		.delete({
-			id: id,
-			CustomerFirstName: CustomerFirstName,
-			CustomerLastName: CustomerLastName,
-			CustomerEmail: CustomerEmail,
-			CustomerPhoneNumber: CustomerPhoneNumber,
-		})
-		.eq(
-			id,
-			CustomerFirstName,
-			CustomerLastName,
-			CustomerEmail,
-			CustomerPhoneNumber
-		);
+router.delete("/deletecustomer", async (req, res) => {
+	id = req.headers.id;
+	const { data, error } = await supabase.from("Customer").delete().eq("id", id);
+	res.send("ok");
 });
 
 router.get("/read", async (req, res) => {
