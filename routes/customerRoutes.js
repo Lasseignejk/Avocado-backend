@@ -37,8 +37,7 @@ router.post("/updateCust", async (req, res) => {
 			Address: Address,
 		})
 		.eq("id", id);
-	console.log(data);
-	console.log(error);
+	res.send(data);
 });
 
 //delete route - Customer
