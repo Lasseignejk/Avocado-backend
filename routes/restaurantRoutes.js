@@ -134,7 +134,7 @@ router.get("/getOrders", async (req, res) => {
 		res.send(error);
 	}
 	if (data) {
-		res.json(data);
+		res.send(data);
 		console.log(data);
 	}
 });
