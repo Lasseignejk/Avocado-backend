@@ -124,11 +124,11 @@ router.get("/getmenu", async (req, res) => {
 });
 
 router.get("/getOrders", async (req, res) => {
-	restaurantId = req.headers.restaurantId;
+	restaurantid = req.headers.restaurantid;
 	const { data, error } = await supabase
 		.from("Order")
 		.select()
-		.eq("RestaurantId", restaurantId);
+		.eq("RestaurantId", restaurantid);
 
 	if (error) {
 		res.send(error);
@@ -139,11 +139,11 @@ router.get("/getOrders", async (req, res) => {
 	}
 });
 router.get("/getOrderItems", async (req, res) => {
-	OrderId = req.headers.OrderId;
+	orderid = req.headers.orderid;
 	const { data, error } = await supabase
 		.from("OrderItem")
 		.select()
-		.eq("OrderId", OrderId);
+		.eq("OrderId", orderid);
 
 	if (error) {
 		res.send(error);
