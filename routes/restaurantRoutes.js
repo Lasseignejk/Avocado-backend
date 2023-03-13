@@ -123,6 +123,37 @@ router.get("/getmenu", async (req, res) => {
 	}
 });
 
+router.get("/getOrders", async (req, res) => {
+	restid = req.headers.restid;
+	const { data, error } = await supabase
+		.from("Order")
+		.select()
+		.eq("RestId", restid);
+
+	if (error) {
+		res.send(error);
+	}
+	if (data) {
+		res.json(data);
+		console.log(data);
+	}
+});
+router.get("/getOrderItems", async (req, res) => {
+	OrderId = req.headers.OrderId;
+	const { data, error } = await supabase
+		.from("OrderItem")
+		.select()
+		.eq("OrderId", OrderId);
+
+	if (error) {
+		res.send(error);
+	}
+	if (data) {
+		res.send(data);
+		console.log(data);
+	}
+});
+
 // add menu item
 router.post("/addtomenu", async (req, res) => {
 	const {
