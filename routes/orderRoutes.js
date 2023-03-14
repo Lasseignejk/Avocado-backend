@@ -56,5 +56,20 @@ router.get("/getorder", async (req, res) => {
     res.send(data);
   }
 });
+// get orders by user id
+router.get("/getorders", async (req, res) => {
+  userid = req.headers.userid;
+  console.log(userid);
+  const { data, error } = await supabase
+    .from("Order")
+    .select()
+    .eq("CustomerId", userid);
+  if (error) {
+    res.send(error);
+  }
+  if (data) {
+    res.send(data);
+  }
+});
 
 module.exports = router;
