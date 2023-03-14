@@ -39,23 +39,21 @@ router.post("/sendorder", async (req, res) => {
     Notes: Notes,
   });
   res.send(data);
-  console.log("req.body: ", req.body);
+  console.log("order: ", req.body);
 });
 
-// // get an order id
-// router.get("/getorder", async (req, res) => {
-//   CustomerId = req.headers.CustomerId;
-//   const { data, error } = await supabase
-//     .from("Order")
-//     .select()
-//     .eq("CustomerId", CustomerId);
-//   if (error) {
-//     res.send(error);
-//   }
-//   if (data) {
-//     res.send(data);
-//   }
-// });
+// submit order
+router.post("/sendorderitems", async (req, res) => {
+  const { MenuItemId, OrderId, ItemQuantity, MenuItemName } = req.body;
+  let { data, error } = await supabase.from("OrderItem").insert({
+    MenuItemId: MenuItemId,
+    OrderId: OrderId,
+    ItemQuantity: ItemQuantity,
+    MenuItemName: MenuItemName,
+  });
+  res.send(data);
+  console.log("menuitem: ", req.body);
+});
 
 // get orders by user id
 router.get("/getorders", async (req, res) => {
