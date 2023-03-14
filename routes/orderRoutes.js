@@ -42,24 +42,24 @@ router.post("/sendorder", async (req, res) => {
   console.log("req.body: ", req.body);
 });
 
-// get an order id
-router.get("/getorder", async (req, res) => {
-  CustomerId = req.headers.CustomerId;
-  const { data, error } = await supabase
-    .from("Order")
-    .select()
-    .eq("CustomerId", CustomerId);
-  if (error) {
-    res.send(error);
-  }
-  if (data) {
-    res.send(data);
-  }
-});
+// // get an order id
+// router.get("/getorder", async (req, res) => {
+//   CustomerId = req.headers.CustomerId;
+//   const { data, error } = await supabase
+//     .from("Order")
+//     .select()
+//     .eq("CustomerId", CustomerId);
+//   if (error) {
+//     res.send(error);
+//   }
+//   if (data) {
+//     res.send(data);
+//   }
+// });
+
 // get orders by user id
 router.get("/getorders", async (req, res) => {
   userid = req.headers.userid;
-  console.log(userid);
   const { data, error } = await supabase
     .from("Order")
     .select()
