@@ -53,9 +53,9 @@ router.get("/getorder", async (req, res) => {
     res.send(error);
   }
   if (data) {
-    // const lastOrder = data[data.length - 1];
-    // res.send(lastOrder);
-    res.send(data);
+    const lastOrder = data[data.length - 1];
+    res.send(lastOrder);
+    // res.send(data);
   }
 });
 
