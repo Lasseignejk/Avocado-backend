@@ -48,7 +48,7 @@ router.get("/getorder", async (req, res) => {
   const { data, error } = await supabase
     .from("Order")
     .select()
-    .eq("CustomerId", userid);
+    .eq(CustomerId, userid);
   if (error) {
     res.send(error);
   }
