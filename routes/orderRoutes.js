@@ -44,11 +44,11 @@ router.post("/sendorder", async (req, res) => {
 
 // get an order id
 router.get("/getorder", async (req, res) => {
-  userid = req.headers.CustomerId;
+  CustomerId = req.headers.CustomerId;
   const { data, error } = await supabase
     .from("Order")
     .select()
-    .eq(CustomerId, userid);
+    .eq("CustomerId", CustomerId);
   if (error) {
     res.send(error);
   }
