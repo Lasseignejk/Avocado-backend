@@ -16,6 +16,7 @@ router.use(
 );
 router.use(bodyParser.json());
 
+// submit order
 router.post("/sendorder", async (req, res) => {
   const {
     CustomerId,
@@ -43,11 +44,11 @@ router.post("/sendorder", async (req, res) => {
 
 // get an order id
 router.get("/getorder", async (req, res) => {
-  CustomerId = req.headers.CustomerId;
+  CustomerId = req.body;
   const { data, error } = await supabase
     .from("Order")
     .select()
-    .eq("CustomerId", 51);
+    .eq("CustomerId", CustomerId);
   if (error) {
     res.send(error);
   }
