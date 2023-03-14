@@ -27,20 +27,34 @@ router.post("/sendorder", async (req, res) => {
     TotalItems,
     Notes,
   } = req.body;
-  let { data, error } = await supabase.from("Order").insert([
-    {
-      CustomerId: CustomerId,
-      RestaurantId: RestaurantId,
-      OrderTotal: OrderTotal,
-      OrderComplete: OrderComplete,
-      IsPickup: IsPickup,
-      IsDelivery: IsDelivery,
-      TotalItems: TotalItems,
-      Notes: Notes,
-    },
-  ]);
+  let { data, error } = await supabase.from("Order").insert({
+    CustomerId: CustomerId,
+    RestaurantId: RestaurantId,
+    OrderTotal: OrderTotal,
+    OrderComplete: OrderComplete,
+    IsPickup: IsPickup,
+    IsDelivery: IsDelivery,
+    TotalItems: TotalItems,
+    Notes: Notes,
+  });
   res.send(data);
   console.log("req.body: ", req.body);
+});
+
+// get an order id
+router.get("/getorder", async (req, res) => {
+  const CustomerId = req.headers.CustomerId;
+  const { data, error } = await supabase
+    .from("Order")
+    .select()
+    .eq("CustomerId", CustomerId);
+  if (error) {
+    res.send(error);
+  }
+  if (data) {
+    const lastOrder = data[data.length - 1];
+    res.send(lastOrder);
+  }
 });
 
 module.exports = router;
