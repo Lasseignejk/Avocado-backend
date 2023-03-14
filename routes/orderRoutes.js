@@ -44,7 +44,7 @@ router.post("/sendorder", async (req, res) => {
 
 // get an order id
 router.get("/getorder", async (req, res) => {
-  const userid = req.headers.CustomerId;
+  userid = req.headers.CustomerId;
   const { data, error } = await supabase
     .from("Order")
     .select()
@@ -53,8 +53,6 @@ router.get("/getorder", async (req, res) => {
     res.send(error);
   }
   if (data) {
-    // const lastOrder = data[data.length - 1];
-    // res.send(lastOrder);
     res.send(data);
   }
 });
