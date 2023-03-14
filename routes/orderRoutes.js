@@ -53,7 +53,7 @@ router.post("/sendorderitems", async (req, res) => {
   });
   if (error) {
     res.send(error);
-    console.log("error here");
+    console.log("error here", error);
   } else {
     res.send(data);
     console.log("menuitem: ", req.body);
