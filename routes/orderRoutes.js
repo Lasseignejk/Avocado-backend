@@ -43,7 +43,7 @@ router.post("/sendorder", async (req, res) => {
 
 // get an order id
 router.get("/getorder", async (req, res) => {
-  const CustomerId = req.headers.CustomerId;
+  CustomerId = req.headers.CustomerId;
   const { data, error } = await supabase
     .from("Order")
     .select()
