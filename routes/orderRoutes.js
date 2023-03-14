@@ -51,8 +51,13 @@ router.post("/sendorderitems", async (req, res) => {
     ItemQuantity: ItemQuantity,
     MenuItemName: MenuItemName,
   });
-  res.send(data);
-  console.log("menuitem: ", req.body);
+  if (error) {
+    res.send(error);
+    console.log("error here");
+  } else {
+    res.send(data);
+    console.log("menuitem: ", req.body);
+  }
 });
 
 // get orders by user id
