@@ -39,7 +39,6 @@ router.delete("/deleteadmin", async (req, res) => {
 // get restaurants by id of admin
 router.get("/getrestaurants", async (req, res) => {
 	userid = req.headers.userid;
-	// console.log(req.get(userId));
 	const { data, error } = await supabase
 		.from("Restaurant")
 		.select()
@@ -64,8 +63,7 @@ router.post("/read", async (req, res) => {
 
 router.get("/displayowner", async (req, res) => {
 	let { data: Owner, error } = await supabase.from("Owner").select("*");
-	console.log(Owner);
-	console.log(error);
+
 	res.send(Owner);
 });
 

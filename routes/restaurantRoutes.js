@@ -19,7 +19,6 @@ router.use(bodyParser.json());
 // get restaurants by id of admin
 router.get("/getrestaurants", async (req, res) => {
 	userid = req.headers.userid;
-	// console.log(req.get(userId));
 	const { data, error } = await supabase
 		.from("Restaurant")
 		.select()
@@ -64,23 +63,19 @@ router.post("/updaterestaurant", async (req, res) => {
 		})
 		.eq("id", id);
 	if (error) {
-		console.log(error);
 		res.send(error);
 	}
 	res.send("ok");
 });
 router.post("/updateOrderDone", async (req, res) => {
-	const { OrderComplete } =
-		req.body;
+	const { OrderComplete } = req.body;
 	const { error } = await supabase
 		.from("Order")
 		.update({
 			OrderComplete: OrderComplete,
-			
 		})
 		.eq("id", id);
 	if (error) {
-		console.log(error);
 		res.send(error);
 	}
 	res.send("ok");
@@ -151,7 +146,6 @@ router.get("/getOrders", async (req, res) => {
 	}
 	if (data) {
 		res.send(data);
-		console.log(data);
 	}
 });
 router.get("/getOrderItems", async (req, res) => {
@@ -166,7 +160,6 @@ router.get("/getOrderItems", async (req, res) => {
 	}
 	if (data) {
 		res.send(data);
-		console.log(data);
 	}
 });
 
@@ -216,7 +209,6 @@ router.post("/addtomenu", async (req, res) => {
 		},
 	]);
 	res.send(data);
-	console.log("req.body: ", req.body);
 });
 
 // Update menu item by id
@@ -252,7 +244,6 @@ router.post("/updatemenuitem", async (req, res) => {
 		})
 		.eq("id", id);
 	if (error) {
-		console.log(error);
 		res.send(error);
 	}
 	res.send("ok");
@@ -263,8 +254,7 @@ router.get("/displayrest", async (req, res) => {
 	let { data: Restaurant, error } = await supabase
 		.from("Restaurant")
 		.select("*");
-	console.log(Restaurant);
-	console.log(error);
+
 	res.send(Restaurant);
 });
 
