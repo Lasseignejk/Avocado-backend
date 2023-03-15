@@ -69,6 +69,22 @@ router.post("/updaterestaurant", async (req, res) => {
 	}
 	res.send("ok");
 });
+router.post("/updateOrderDone", async (req, res) => {
+	const { OrderComplete } =
+		req.body;
+	const { error } = await supabase
+		.from("Order")
+		.update({
+			OrderComplete: OrderComplete,
+			
+		})
+		.eq("id", id);
+	if (error) {
+		console.log(error);
+		res.send(error);
+	}
+	res.send("ok");
+});
 
 // add restaurant
 router.post("/addrest", async (req, res) => {
@@ -152,6 +168,19 @@ router.get("/getOrderItems", async (req, res) => {
 		res.send(data);
 		console.log(data);
 	}
+});
+
+router.delete("/deleteOrder", async (req, res) => {
+	orderid = req.headers.orderid;
+	const { data, error } = await supabase
+		.from("Order")
+		.delete()
+		.eq("OrderId", orderid);
+
+	const { data: orderData, error: orderError } = await supabase
+		.from("Order")
+		.delete()
+		.eq("id", restid);
 });
 
 // add menu item
