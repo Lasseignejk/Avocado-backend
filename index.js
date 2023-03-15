@@ -57,8 +57,6 @@ app.post("/addtomenu", async (req, res) => {
 			ItemCookTime: ItemCookTime,
 		},
 	]);
-	console.log(data);
-	console.log(error);
 });
 
 app.post("/updatemenu", async (req, res) => {
@@ -106,27 +104,22 @@ app.post("/updatemenu", async (req, res) => {
 			(ItemIsPopular, ItemIsPopular),
 			(ItemCookTime, ItemCookTime),
 		]);
-	console.log(data);
-	console.log(error);
 });
 
 app.get("/displaymenu", async (req, res) => {
 	let { data: MenuItems, error } = await supabase.from("MenuItems").select("*");
-	console.log(MenuItems);
-	console.log(error);
+
 	res.send(MenuItems);
 });
 
 app.get("/displayorder", async (req, res) => {
 	let { data: Order, error } = await supabase.from("Order").select("*");
-	console.log(Order);
-	console.log(error);
+
 	res.send(Order);
 });
 app.get("/displayorderitem", async (req, res) => {
 	let { data: Order, error } = await supabase.from("OrderItem").select("*");
-	console.log(Order);
-	console.log(error);
+
 	res.send(Order);
 });
 

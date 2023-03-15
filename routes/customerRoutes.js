@@ -69,8 +69,6 @@ router.get("/read", async (req, res) => {
 
 router.get("/displaycustomer", async (req, res) => {
 	let { data: Customer, error } = await supabase.from("Customer").select("*");
-	console.log(Customer);
-	console.log(error);
 	res.send(Customer);
 });
 
